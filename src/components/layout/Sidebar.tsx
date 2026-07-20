@@ -6,7 +6,6 @@ import {
   Search,
   Store,
   Truck,
-  UserRoundPlus,
   UsersRound,
   Warehouse,
   X,
@@ -38,7 +37,7 @@ const navGroups: NavGroup[] = [
     items: [
       { label: 'Add stock entry', to: '/warehouse/stocks/new', icon: PackagePlus },
       { label: 'Show stock', to: '/warehouse/stocks', icon: Boxes },
-      { label: 'Add supplier', to: '/warehouse/suppliers/new', icon: UserRoundPlus },
+      
       { label: 'Show suppliers', to: '/warehouse/suppliers', icon: UsersRound },
       { label: 'Update quantity', to: '/warehouse/quantity/update', icon: Truck },
       { label: 'Stock inquiry', to: '/warehouse/inquiry', icon: Search },
@@ -50,6 +49,10 @@ const navGroups: NavGroup[] = [
     items: [
       { label: 'Purchase orders', to: '/purchasing/orders', icon: ClipboardList },
       { label: 'Create purchase order', to: '/purchasing/orders/new', icon: PackagePlus },
+        { label: 'Suppliers', to: '/purchasing/suppliers', icon: UsersRound },
+        { label: 'Stock', to: '/purchasing/stocks', icon: Boxes },
+        { label: 'Material requests', to: '/purchasing/material-requests', icon: ClipboardList },
+        { label: 'Reports', to: '/purchasing/reports', icon: ClipboardList },
     ],
   },
 ];

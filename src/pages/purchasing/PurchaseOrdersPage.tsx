@@ -36,7 +36,10 @@ export function PurchaseOrdersPage() {
     { key: 'total', header: 'Total amount', align: 'right', cell: (order) => <strong>{formatCurrency(order.totalAmount)}</strong> },
     {
       key: 'view', header: 'Action', align: 'right', cell: (order) => (
-        <button className="table-action" onClick={() => setSelected(order)}><Eye size={16} /> View</button>
+        <div className="row-actions">
+          <button className="table-action" onClick={() => setSelected(order)}><Eye size={16} /> View</button>
+          <Link className="table-action" to={`/purchasing/orders/${order.purchaseOrderNumber}`}>Open</Link>
+        </div>
       ),
     },
   ];

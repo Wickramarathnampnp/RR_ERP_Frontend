@@ -79,7 +79,7 @@ export function DashboardPage() {
         <Card
           title="Low-stock attention"
           description="Items that may require replenishment soon."
-          actions={<Link className="text-link" to="/warehouse/inquiry">View inquiry</Link>}
+          actions={<Link className="text-link" to="/purchasing/inquiry">View inquiry</Link>}
         >
           {lowStockItems.length ? (
             <div className="activity-list">
@@ -139,7 +139,7 @@ export function DashboardPage() {
             <PackageCheck size={21} />
             <span><strong>Receive stock</strong><small>Update an item’s available quantity</small></span>
           </Link>
-          <Link className="quick-action" to="/warehouse/suppliers/new">
+          <Link className="quick-action" to="/purchasing/suppliers/new">
             <UsersRound size={21} />
             <span><strong>Add supplier</strong><small>Register supplier and bank details</small></span>
           </Link>
