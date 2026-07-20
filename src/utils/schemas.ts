@@ -52,6 +52,7 @@ export const purchaseOrderSchema = z
     deliverProject: requiredText('Delivery project'),
     deliverLocation: requiredText('Delivery location'),
     supplierCode: requiredText('Supplier'),
+    currency: z.enum(['LKR','USD','EUR']),
   })
   .refine((values) => values.orderDueDate >= values.orderedDate, {
     message: 'Order due date must be on or after the ordered date',

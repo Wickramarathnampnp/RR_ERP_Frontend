@@ -27,6 +27,7 @@ const orderDefaults: PurchaseOrderFormValues = {
   purchaseOrderNumber: '',
   orderedDate: today,
   freightType: 'Standard',
+  currency: 'LKR',
   endUserProjectDetails: '',
   orderDueDate: today,
   paymentTerm: '',
@@ -64,6 +65,7 @@ export function PurchaseOrderFormPage() {
   const selectedProjectName = useWatch({ control: orderForm.control, name: 'deliverProject' });
   const selectedSupplierCode = useWatch({ control: orderForm.control, name: 'supplierCode' });
   const selectedStockCode = useWatch({ control: itemForm.control, name: 'stockCode' });
+  const selectedCurrency = useWatch({ control: orderForm.control, name: 'currency' }) ?? 'LKR';
 
   const selectedSupplier = state.suppliers.find(
     (supplier) => supplier.supplierCode === selectedSupplierCode,
@@ -147,8 +149,8 @@ export function PurchaseOrderFormPage() {
     { key: 'description', header: 'Description', cell: (item) => item.description },
     { key: 'uom', header: 'UOM', cell: (item) => item.uom },
     { key: 'quantity', header: 'Quantity', align: 'right', cell: (item) => item.quantity },
-    { key: 'price', header: 'Unit price', align: 'right', cell: (item) => formatCurrency(item.unitPrice) },
-    { key: 'amount', header: 'Amount', align: 'right', cell: (item) => <strong>{formatCurrency(item.amount)}</strong> },
+    { key: 'price', header: 'Unit price', align: 'right', cell: (item) => formatCurrency(item.unitPrice, selectedCurrency) },
+    { key: 'amount', header: 'Amount', align: 'right', cell: (item) => <strong>{formatCurrency(item.amount, selectedCurrency)}</strong> },
     {
       key: 'remove',
       header: '',
@@ -200,6 +202,7 @@ export function PurchaseOrderFormPage() {
               >
                 {FREIGHT_TYPES.map((type) => <option key={type} value={type}>{type}</option>)}
               </SelectField>
+              {/* currency selector moved to the PO items section so it sits next to unit price */}
               <InputField
                 label="Order due date"
                 type="date"
@@ -291,6 +294,16 @@ export function PurchaseOrderFormPage() {
               <SelectField label="UOM" error={itemForm.formState.errors.uom?.message} required {...itemForm.register('uom')}>
                 {UOM_OPTIONS.map((uom) => <option key={uom} value={uom}>{uom}</option>)}
               </SelectField>
+              <SelectField
+                label="Currency"
+                error={orderForm.formState.errors.currency?.message}
+                required
+                {...orderForm.register('currency')}
+              >
+                <option value="LKR">LKR</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+              </SelectField>
               <InputField
                 label="Quantity"
                 type="number"
@@ -301,7 +314,7 @@ export function PurchaseOrderFormPage() {
                 {...itemForm.register('quantity', { valueAsNumber: true })}
               />
               <InputField
-                label="Unit price (LKR)"
+                label={`Unit price (${selectedCurrency})`}
                 type="number"
                 min="0"
                 step="0.01"
@@ -332,14 +345,14 @@ export function PurchaseOrderFormPage() {
 
             <div className="po-total" aria-label="Purchase order total">
               <span>Total amount</span>
-              <strong>{formatCurrency(totalAmount)}</strong>
+              <strong>{formatCurrency(totalAmount, selectedCurrency)}</strong>
             </div>
           </Card>
 
           <div className="sticky-actions">
             <div>
               <strong>{items.length} item(s)</strong>
-              <span>{formatCurrency(totalAmount)} total</span>
+              <span>{formatCurrency(totalAmount, selectedCurrency)} total</span>
             </div>
             <div className="form-actions form-actions--flush">
               <Button type="submit" icon={<ClipboardCheck size={17} />}>Save purchase order</Button>

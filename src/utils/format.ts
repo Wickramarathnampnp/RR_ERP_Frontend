@@ -1,7 +1,7 @@
-export function formatCurrency(value: number): string {
+export function formatCurrency(value: number, currency = 'LKR'): string {
   return new Intl.NumberFormat('en-LK', {
     style: 'currency',
-    currency: 'LKR',
+    currency,
     minimumFractionDigits: 2,
   }).format(value);
 }

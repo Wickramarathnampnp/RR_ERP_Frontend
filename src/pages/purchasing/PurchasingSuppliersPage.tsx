@@ -1,6 +1,6 @@
-import { Eye, Pencil } from 'lucide-react';
+import { Eye, Pencil, Plus } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
@@ -13,7 +13,7 @@ import { useAppData } from '../../hooks/useAppData';
 import type { Supplier } from '../../types/domain';
 import { joinAddress } from '../../utils/format';
 
-export function SuppliersPage() {
+export function PurchasingSuppliersPage() {
   const { state } = useAppData();
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
@@ -55,7 +55,7 @@ export function SuppliersPage() {
       cell: (supplier) => (
         <div className="row-actions">
           <button className="table-action" onClick={() => setSelected(supplier)}><Eye size={16} /> View</button>
-          <button className="table-action" onClick={() => void navigate(`/warehouse/suppliers/${supplier.supplierCode}/edit`)}><Pencil size={16} /> Edit</button>
+          <button className="table-action" onClick={() => void navigate(`/purchasing/suppliers/${supplier.supplierCode}/edit`)}><Pencil size={16} /> Edit</button>
         </div>
       ),
     },
@@ -64,9 +64,10 @@ export function SuppliersPage() {
   return (
     <div className="page-stack">
       <PageHeader
-        eyebrow="Warehouse · Supplier Management"
+        eyebrow="Purchasing · Supplier Management"
         title="Supplier register"
-        description="Review supplier contact details, tax information, bank references, and status."
+        description="Review supplier contact details, tax information, bank references, and status for purchasing."
+        actions={<Link to="/purchasing/suppliers/new"><Button icon={<Plus size={17} />}>Add supplier</Button></Link>}
       />
       <Card>
         <div className="toolbar">
@@ -81,10 +82,11 @@ export function SuppliersPage() {
         </div>
         {rows.length ? (
           <DataTable columns={columns} rows={rows} getRowKey={(supplier) => supplier.supplierCode} caption="Registered suppliers" />
-          ) : (
+        ) : (
           <EmptyState
             title="No suppliers found"
-            description="Change the search term. Add supplier is available in Purchasing → Suppliers."
+            description="Change the search term or register a new supplier."
+            action={<Link to="/purchasing/suppliers/new"><Button>Add supplier</Button></Link>}
           />
         )}
       </Card>
@@ -96,7 +98,7 @@ export function SuppliersPage() {
         footer={selected ? (
           <>
             <Button variant="secondary" onClick={() => setSelected(null)}>Close</Button>
-            <Button onClick={() => void navigate(`/warehouse/suppliers/${selected.supplierCode}/edit`)}>Edit supplier</Button>
+            <Button onClick={() => void navigate(`/purchasing/suppliers/${selected.supplierCode}/edit`)}>Edit supplier</Button>
           </>
         ) : null}
       >

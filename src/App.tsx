@@ -10,6 +10,14 @@ import { StocksPage } from './pages/stocks/StocksPage';
 import { UpdateQuantityPage } from './pages/stocks/UpdateQuantityPage';
 import { SupplierFormPage } from './pages/suppliers/SupplierFormPage';
 import { SuppliersPage } from './pages/suppliers/SuppliersPage';
+import { PurchasingSuppliersPage } from './pages/purchasing/PurchasingSuppliersPage';
+import { PurchasingSupplierFormPage } from './pages/purchasing/PurchasingSupplierFormPage';
+import { PurchasingStocksPage } from './pages/purchasing/PurchasingStocksPage';
+import { PurchasingStockFormPage } from './pages/purchasing/PurchasingStockFormPage';
+import { MaterialRequestsPage } from './pages/purchasing/MaterialRequestsPage';
+import { MaterialRequestFormPage } from './pages/purchasing/MaterialRequestFormPage';
+import { PurchaseOrderViewPage } from './pages/purchasing/PurchaseOrderViewPage';
+import { PurchasingReportsPage } from './pages/purchasing/ReportsPage';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +39,17 @@ const router = createBrowserRouter([
       { path: 'warehouse/inquiry', element: <StockInquiryPage /> },
       { path: 'purchasing/orders', element: <PurchaseOrdersPage /> },
       { path: 'purchasing/orders/new', element: <PurchaseOrderFormPage /> },
+      { path: 'purchasing/orders/:poNumber', element: <PurchaseOrderViewPage /> },
+      { path: 'purchasing/suppliers', element: <PurchasingSuppliersPage /> },
+      { path: 'purchasing/suppliers/new', element: <PurchasingSupplierFormPage /> },
+      { path: 'purchasing/suppliers/:supplierCode/edit', element: <PurchasingSupplierFormPage /> },
+      { path: 'purchasing/stocks', element: <PurchasingStocksPage /> },
+      { path: 'purchasing/stocks/new', element: <PurchasingStockFormPage /> },
+      { path: 'purchasing/stocks/:stockCode/edit', element: <PurchasingStockFormPage /> },
+      { path: 'purchasing/inquiry', element: <PurchasingStocksPage /> },
+      { path: 'purchasing/material-requests', element: <MaterialRequestsPage /> },
+      { path: 'purchasing/material-requests/new', element: <MaterialRequestFormPage /> },
+      { path: 'purchasing/reports', element: <PurchasingReportsPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
